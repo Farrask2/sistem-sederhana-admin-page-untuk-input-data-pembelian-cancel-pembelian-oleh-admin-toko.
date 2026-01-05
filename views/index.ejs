@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Transaksi - Laptop Store</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container dashboard-container">
+    <div class="header-section text-center mb-5">
+        <h2 class="text-primary fw-bold">
+            <i class="fa-solid fa-laptop-medical me-2"></i>Laptop Store Admin
+        </h2>
+        <p class="text-muted">Pencatatan transaksi penjualan harian</p>
+        <div class="d-inline-flex bg-white p-1 rounded-pill shadow-sm border mt-3">
+    <a href="/" class="btn btn-primary rounded-pill px-4 shadow-none">
+        <i class="fa-solid fa-plus-circle me-2"></i>Input
+    </a>
+    <a href="/riwayat" class="btn btn-white rounded-pill px-4 border-0 text-muted">
+        <i class="fa-solid fa-history me-2"></i>Riwayat
+    </a>
+    <a href="/stok" class="btn btn-white rounded-pill px-4 border-0 text-muted">
+        <i class="fa-solid fa-warehouse me-2"></i>Stok
+    </a>
+</div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-card">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
+                        <i class="fa-solid fa-cart-shopping text-primary fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0 fw-bold">Form Penjualan</h5>
+                        <small class="text-muted">Pastikan stok mencukupi sebelum input</small>
+                    </div>
+                </div>
+
+                <form action="/beli" method="POST" class="row g-4">
+                    <div class="col-12">
+                        <label class="form-label">Model Laptop & Stok Saat Ini</label>
+                        <select name="produk_id" class="form-select form-select-lg shadow-none">
+                            <% produk.forEach(p => { %>
+                                <option value="<%= p.id %>" <%= p.stok === 0 ? 'disabled' : '' %>>
+                                    <%= p.nama %> — Rp<%= p.harga.toLocaleString('id-ID') %> 
+                                    (<%= p.stok > 0 ? 'Sisa: ' + p.stok : 'STOK HABIS' %>)
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Jumlah Unit</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-boxes-stacked"></i></span>
+                            <input type="number" name="jumlah" class="form-control form-control-lg border-start-0 shadow-none" min="1" value="1" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 align-self-end">
+                        <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm py-2">
+                            <i class="fa-solid fa-check-circle me-2"></i>Simpan Transaksi
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mt-4 p-3 bg-light rounded-3 border d-flex align-items-center">
+                <i class="fa-solid fa-circle-info text-primary me-3 fs-5"></i>
+                <small class="text-muted">
+                    Data yang disimpan akan otomatis mengurangi stok gudang dan masuk ke <a href="/riwayat" class="text-decoration-none fw-bold">halaman riwayat</a>.
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
