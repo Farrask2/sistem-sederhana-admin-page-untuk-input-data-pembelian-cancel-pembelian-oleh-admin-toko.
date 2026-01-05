@@ -27,3 +27,6 @@ Pastikan Anda sudah menginstal Node.js, lalu jalankan perintah berikut di termin
 npm install express ejs sqlite3
 lalu jalankan menggunakan 
 node app.js
+
+---
+
